@@ -240,6 +240,7 @@ class Interpreter {
       0.0,
     ]);
 
+    //outputs
     outputTensors[0].copyTo(output0);
     outputTensors[1].copyTo(output1);
     outputTensors[2].copyTo(output2);
