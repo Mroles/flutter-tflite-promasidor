@@ -166,22 +166,87 @@ class Interpreter {
   }
 
   /// Run for single input and output
-  void run(Object input, Object output) {
+  List run(Object input, Object output) {
     var map = <int, Object>{};
     map[0] = output;
-    runForMultipleInputs([input], map);
+    return runForMultipleInputs([input], map);
   }
 
   /// Run for multiple inputs and outputs
-  void runForMultipleInputs(List<Object> inputs, Map<int, Object> outputs) {
+  List runForMultipleInputs(List<Object> inputs, Map<int, Object> outputs) {
     if (outputs.isEmpty) {
       throw ArgumentError('Input error: Outputs should not be null or empty.');
     }
     runInference(inputs);
+
     var outputTensors = getOutputTensors();
-    for (var i = 0; i < outputTensors.length; i++) {
-      outputTensors[i].copyTo(outputs[i]!);
-    }
+
+    List<List<List<double>>> output1 =
+        List.generate(1, (i) => List.generate(25, (j) => List.filled(4, 0.0)));
+
+    final output0 = List.filled(1, [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+    ]);
+    final output2 = [0.0];
+    final output3 = List.filled(1, [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+    ]);
+
+    outputTensors[0].copyTo(output0);
+    outputTensors[1].copyTo(output1);
+    outputTensors[2].copyTo(output2);
+    outputTensors[3].copyTo(output3);
+    var returnList = [output0, output1, output2, output3];
+
+    return returnList;
   }
 
   /// Just run inference
